@@ -1,43 +1,22 @@
 # HMM ile İzole Kelime Tanıma Sistemi
 
-## Problem Tanımı
+### 1. Problem Tanımı
+[cite_start]Bu projede **Hidden Markov Model (HMM)** kullanılarak basit bir konuşma tanıma sistemi simüle edilmiştir[cite: 2, 20]. [cite_start]Amaç, "EV" ve "OKUL" kelimelerini temsil eden iki ayrı HMM modeli oluşturmak ve gelen bir gözlem dizisinin hangi kelimeye daha yakın olduğunu **Log-Likelihood** değeri ile belirlemektir[cite: 23, 26].
 
-Bu projede Hidden Markov Model (HMM) kullanılarak basit bir konuşma
-tanıma sistemi simüle edilmiştir. Amaç iki farklı kelimeyi ("EV" ve
-"OKUL") temsil eden iki ayrı HMM modeli oluşturmak ve gelen bir gözlem
-dizisinin hangi kelimeye daha yakın olduğunu log-likelihood değeri ile
-belirlemektir.
+### 2. Kullanılan Yöntem
+[cite_start]Projede Python dili ve `hmmlearn` kütüphanesi kullanılmıştır[cite: 22, 28]. 
+* [cite_start]**Durumlar (Hidden States)**: Kelimeyi oluşturan fonemleri temsil eder[cite: 4, 5].
+* [cite_start]**Gözlemler (Observations)**: Sesin frekans karakteristiğini (High / Low) temsil eder[cite: 9].
+* [cite_start]**Model Parametreleri**: Başlangıç ($\pi$), Geçiş ($A$) ve Emisyon ($B$) olasılık matrisleri tanımlanmıştır[cite: 10, 11, 14].
 
-## Kullanılan Yöntem
+### 3. Klasör Yapısı
+[cite_start]Hocanın belirttiği standartlara uygun olarak proje dizini şu şekildedir[cite: 44, 46, 49]:
+* [cite_start]**`src/`**: `recognizer.py` (HMM sınıflandırıcı kodu) [cite: 48]
+* [cite_start]**`report/`**: `cozum_anahtari.pdf` (Viterbi çözümü ve analiz soruları) [cite: 50]
+* [cite_start]**`requirements.txt`**: Gerekli kütüphaneler (`hmmlearn`, `numpy`) [cite: 51]
+* [cite_start]**`README.md`**: Proje açıklaması ve tartışma [cite: 52]
 
-Projede Python ve hmmlearn kütüphanesi kullanılmıştır. Her kelime için
-ayrı bir HMM modeli oluşturulmuştur.
-
-Durumlar: - Fonemleri temsil eder
-
-Gözlemler: - Ses spektrumu özelliklerini temsil eder (High / Low)
-
-Model parametreleri: - Başlangıç olasılıkları - Geçiş olasılıkları -
-Emisyon olasılıkları
-
-## Çalıştırma
-
-Önce kütüphaneyi kurun:
-
-pip install hmmlearn
-
-Daha sonra:
-
-python speech_classifier.py
-
-## Dosyalar
-
-speech_classifier.py -\> HMM kelime sınıflandırıcı kodu\
-viterbi_solution.md -\> Teorik Viterbi çözümü\
-analysis.md -\> Analiz sorularının cevapları
-
-## Sonuç
-
-Test gözlem dizisi için her iki modelin log-likelihood değeri
-hesaplanır. Daha yüksek değeri veren model tahmin edilen kelime olarak
-seçilir.
+### 4. Çalıştırma Talimatları
+1. Gerekli kütüphaneleri kurun:
+   ```bash
+   pip install -r requirements.txt
