@@ -1,1 +1,1 @@
-
+Bu proje kapsamında HMM model parametreleri (başlangıç, geçiş ve emisyon olasılıkları) ödev dökümanındaki teorik değerler baz alınarak doğrudan kaynak kod içerisine tanımlanmıştır. Harici bir veri seti kullanılmamıştır.
