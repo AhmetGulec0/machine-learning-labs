@@ -1,1 +1,7 @@
-Bu proje kapsamında HMM model parametreleri (başlangıç, geçiş ve emisyon olasılıkları) ödev dökümanındaki teorik değerler baz alınarak doğrudan kaynak kod içerisine tanımlanmıştır. Harici bir veri seti kullanılmamıştır.
+HMM Model Veri Notu:
+
+Bu proje kapsamında "EV" ve "OKUL" kelimelerini temsil eden Hidden Markov Modelleri (HMM) oluşturulmuştur. 
+
+Model eğitim ve test süreçlerinde kullanılan parametreler (başlangıç olasılıkları, geçiş olasılıkları ve emisyon olasılıkları), ödev dökümanında verilen teorik değerler baz alınarak doğrudan "src/recognizer.py" dosyası içerisine matris formunda tanımlanmıştır. 
+
+Sistem, [High, Low] frekans dizisini temsil eden sayısal gözlem verileri üzerinde çalışmaktadır. Bu nedenle harici bir ses dosyası (.wav) veya veri tabanı dosyasına ihtiyaç duyulmadan, tanımlanan bu teorik olasılık değerleri üzerinden hesaplama yapılmaktadır.
