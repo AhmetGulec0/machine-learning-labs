@@ -1,32 +1,76 @@
+# ==========================================================
+# BAĞIMLILIKLAR (Kütüphanelerin Import Edilmesi)
+# ==========================================================
 import numpy as np
 from scipy.optimize import minimize
 import matplotlib.pyplot as plt
 from scipy.stats import poisson
 
-raw_data = np.array([14, 12, 16, 13, 15, 12, 14, 17, 13, 15])
+# ==========================================================
+# BÖLÜM 2: VERİ TANIMLAMA VE HAZIRLIK
+# ==========================================================
+# Dakika başına geçen araç sayılarını temsil eden örnek veri seti
+# Bu veriler Poisson analizi için temel teşkil eder.
+traffic_data = np.array([12, 15, 10, 18, 14, 16, 11, 13, 15, 14])
 
-def log_likelihood_function(mu, x):
+# ==========================================================
+# BÖLÜM 3: MLE FONKSİYONU VE OPTİMİZASYON
+# ==========================================================
+
+def calculate_negative_log_likelihood(mu, observations):
+    """
+    Poisson dağılımı için Negatif Log-Likelihood değerini hesaplar.
+    Minimize edilerek en uygun Lambda (mu) değeri bulunur.
+    """
     if mu <= 0:
-        return 1e10
-    n = len(x)
-    val = -n * mu + np.sum(x) * np.log(mu)
-    return -val
+        return 1e10 # Geçersiz lambda değerlerini engellemek için büyük bir ceza değeri
+    
+    n = len(observations)
+    # Log-Likelihood Formülü: -n*mu + sum(xi)*ln(mu)
+    log_likelihood = -n * mu + np.sum(observations) * np.log(mu)
+    
+    # Minimize fonksiyonu için negatif değer döndürülür
+    return -log_likelihood
 
-init_mu = 1.0
-opt_result = minimize(log_likelihood_function, init_mu, args=(raw_data,), method='L-BFGS-B', bounds=[(0.001, None)])
-final_lambda = opt_result.x[0]
+# Başlangıç tahmini (Initial guess)
+initial_mu = traffic_data.mean() 
 
-print(f"Result (Lambda): {final_lambda}")
-print(f"Mean: {np.mean(raw_data)}")
+# Scipy minimize kullanarak en iyi Lambda değerinin bulunması
+optimization_result = minimize(
+    calculate_negative_log_likelihood, 
+    initial_mu, 
+    args=(traffic_data,), 
+    method='L-BFGS-B', 
+    bounds=[(0.001, None)]
+)
 
-plt.figure()
-plt.hist(raw_data, bins=range(min(raw_data), max(raw_data) + 2), density=True, alpha=0.7, color='gray', align='left')
-x_axis = np.arange(min(raw_data)-2, max(raw_data)+3)
-plt.plot(x_axis, poisson.pmf(x_axis, final_lambda), 'k-o')
+mle_lambda = optimization_result.x[0]
+
+# Sonuçların raporlanması
+print(f"Sayısal Optimizasyon ile Bulunan Lambda: {mle_lambda:.4f}")
+print(f"Teorik Beklenti (Veri Ortalaması): {traffic_data.mean():.4f}")
+
+# ==========================================================
+# BÖLÜM 4: GÖRSELLEŞTİRME
+# ==========================================================
+
+plt.figure(figsize=(10, 6))
+
+# Gerçek verinin dağılımı (Histogram)
+plt.hist(traffic_data, bins=range(min(traffic_data), max(traffic_data) + 2), 
+         density=True, alpha=0.6, color='skyblue', edgecolor='black', 
+         label='Gözlemlenen Araç Sayıları', align='left')
+
+# MLE ile tahmin edilen parametreye göre Poisson PMF eğrisi
+x_range = np.arange(min(traffic_data)-2, max(traffic_data)+3)
+plt.plot(x_range, poisson.pmf(x_range, mle_lambda), 'ro--', 
+         linewidth=2, markersize=6, label=f'Poisson Modeli (λ={mle_lambda:.2f})')
+
+# Zorunlu Grafik Bileşenleri
+plt.title('Trafik Yoğunluğu Analizi: Gerçek Veri vs Poisson Modeli') # Başlık
+plt.xlabel('Dakika Başına Araç Sayısı (k)') # X Ekseni
+plt.ylabel('Gözlemlenme Olasılığı / Frekans') # Y Ekseni
+plt.legend() # Gösterge
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
 plt.show()
-
-def check_outlier(d, val):
-    updated_data = np.append(d, val)
-    return np.mean(updated_data)
-
-print(f"Outlier Effect: {check_outlier(raw_data, 200)}")
