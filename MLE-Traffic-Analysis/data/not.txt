@@ -1,1 +1,4 @@
-
+VERİ BİLGİSİ:
+Bu çalışmada kullanılan veriler, bir ana caddeden geçen dakikalık araç sayılarını temsil etmektedir. 
+Analiz aşamasında kullanılan örneklem seti: [12, 15, 10, 18, 14, 16, 11, 13, 15, 14].
+Bu değerler, Poisson dağılımı parametre tahmini (MLE) için temel teşkil etmiştir.
