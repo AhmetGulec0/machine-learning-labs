@@ -1,1 +1,17 @@
+# Python geçici dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
 
+# Jupyter Notebook kontrol noktaları
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Sanal ortamlar (Eğer varsa)
+venv/
+env/
+.env
+
+# İşletim sistemi dosyaları (Mac ve Windows)
+.DS_Store
+Thumbs.db
