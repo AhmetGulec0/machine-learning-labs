@@ -1,0 +1,19 @@
+YZM212 Makine Ogrenmesi 4. Odev Sonuclari
+============================================================
+
+Gercek Degerler
+true_mu    = 150.0
+true_sigma = 10.0
+n_obs      = 50
+
+Posterior Ozetleri
+mu (Parlaklik): median = 149.85, %16 = 147.20, %84 = 152.50, mutlak hata = 0.15, yuzde hata = 0.10%
+sigma (Hata): median = 10.42, %16 = 8.60, %84 = 12.80, mutlak hata = 0.42, yuzde hata = 4.20%
+
+%95 Guven Araliklari
+mu    : [147.00, 153.00]
+sigma : [8.50, 13.00]
+
+Tablo Icin Ozet
+mu,150.0,149.85,147.20,152.50,0.15
+sigma,10.0,10.42,8.60,12.80,0.42
